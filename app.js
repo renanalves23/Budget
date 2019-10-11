@@ -9,7 +9,15 @@ var budgetController = (function() {
 //UI - USER INTERFACE CONTROLLER
 var UIController = (function() {
     
-  //Some code
+  return {
+    getInput: function() {
+      return {
+        type: document.querySelector('.add__type').value, //será inc ou exp
+        description: document.querySelector('.add__description').value,
+        value: document.querySelector('.add__value').value,
+      };
+   }
+};
 
 })();
 
@@ -23,7 +31,8 @@ var controller = (function(budgetCtrl, UICtrl) {
     var ctrlAddItem = function() {
 
         // 1. get the field input data
-
+          var input = UICtrl.getInput();
+          console.log(input)
         //2. add the item to the budget controller
 
         //3. add the item to the UI
@@ -31,7 +40,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         //4. Calculate the budget
 
         //5.Display the budget on the UI
-      window.alert('CHESSUS')
+      //window.alert('CHESSUS')
     }
 
   document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
