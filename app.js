@@ -40,14 +40,26 @@ var UIController = (function() {
 //*****passando os outros 2 módulos como parâmetros para que saiba da existencia dos outros 2 e possam se conectar
 var controller = (function(budgetCtrl, UICtrl) { 
 
-    var DOM = UICtrl.getDOMstrings() //calling the public module exposed before
+      var setupEventListeners = function() {
+        var DOM = UICtrl.getDOMstrings() //calling the public module exposed before
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+      //KEYPRESS EVENT
+      document.addEventListener('keypress', function(event) {
+          //caso seja pressionado a Tecla ENTER
+        if (event.keyCode === 13 || event.wich === 13) { //.keyCode para browsers modernos && .wich para browsers antigos
+            ctrlAddItem();
+    }
+
+  });
+      };
 
     //custom function
     var ctrlAddItem = function() {
 
         // 1. get the field input data
           var input = UICtrl.getInput(); //chamado do UI
-          console.log(input)
+          //console.log(input)
         //2. add the item to the budget controller
 
         //3. add the item to the UI
@@ -56,23 +68,19 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         //5.Display the budget on the UI
       //window.alert('CHESSUS')
+    };
+
+    return {
+      init: function() {
+        console.log('startou');
+        setupEventListeners();
+      }
     }
 
-  document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-
-  //KEYPRESS EVENT
-  document.addEventListener('keypress', function(event) {
-      //caso seja pressionado a Tecla ENTER
-    if (event.keyCode === 13 || event.wich === 13) { //.keyCode para browsers modernos && .wich para browsers antigos
-        ctrlAddItem();
-    }
-
-  });
-
-
+  
 })(budgetController, UIController);//******/
 
-
+controller.init();
 
 
 
