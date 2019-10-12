@@ -9,14 +9,27 @@ var budgetController = (function() {
 //UI - USER INTERFACE CONTROLLER
 var UIController = (function() {
     
+  var DOMstrings = {
+    inputType: '.add__type',
+    inputDescription: '.add__description',
+    inputValue: '.add__value',
+    inputBtn: '.add__btn'
+  };
+
   return {
+      //public function
     getInput: function() {
       return {
-        type: document.querySelector('.add__type').value, //será inc ou exp
-        description: document.querySelector('.add__description').value,
-        value: document.querySelector('.add__value').value,
+        type: document.querySelector(DOMstrings.inputType).value, //será inc ou exp
+        description: document.querySelector(DOMstrings.inputDescription).value,
+        value: document.querySelector(DOMstrings.inputValue).value,
       };
+   },
+    //exposing DOMstrings to the public
+   getDOMstrings: function() {
+     return DOMstrings
    }
+
 };
 
 })();
@@ -27,11 +40,13 @@ var UIController = (function() {
 //*****passando os outros 2 módulos como parâmetros para que saiba da existencia dos outros 2 e possam se conectar
 var controller = (function(budgetCtrl, UICtrl) { 
 
+    var DOM = UICtrl.getDOMstrings() //calling the public module exposed before
+
     //custom function
     var ctrlAddItem = function() {
 
         // 1. get the field input data
-          var input = UICtrl.getInput();
+          var input = UICtrl.getInput(); //chamado do UI
           console.log(input)
         //2. add the item to the budget controller
 
@@ -43,7 +58,7 @@ var controller = (function(budgetCtrl, UICtrl) {
       //window.alert('CHESSUS')
     }
 
-  document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+  document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 
   //KEYPRESS EVENT
   document.addEventListener('keypress', function(event) {
