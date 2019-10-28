@@ -28,7 +28,12 @@ var budgetController = (function() {
           var newItem, ID;
 
             //create new ID
-          ID = data.allItems[type][data.allItems[type].length -1].id +1;
+            if(data.allItems[type].length > 0) {
+              ID = data.allItems[type][data.allItems[type].length -1].id +1;
+
+            }else {
+              ID = 0; 
+            }
 
           //create new Item based on inc or exp
           if (type === 'exp'){
@@ -42,7 +47,7 @@ var budgetController = (function() {
 
             //return new element
           return newItem;
-        }
+        },
 
       };
      
@@ -99,12 +104,13 @@ var controller = (function(budgetCtrl, UICtrl) {
 
     //custom function
     var ctrlAddItem = function() {
+      var input, newItem;
 
         // 1. get the field input data
-          var input = UICtrl.getInput(); //chamado do UI
+          input = UICtrl.getInput(); //chamado do UI
           //console.log(input)
         //2. add the item to the budget controller
-          budgetController.addItem(input.type, input.description, input.value)
+          newItem = budgetController.addItem(input.type, input.description, input.value)
         //3. add the item to the UI
 
         //4. Calculate the budget
