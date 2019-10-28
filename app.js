@@ -104,7 +104,7 @@ var controller = (function(budgetCtrl, UICtrl) {
           var input = UICtrl.getInput(); //chamado do UI
           //console.log(input)
         //2. add the item to the budget controller
-          budgetController.addItem()
+          budgetController.addItem(input.type, input.description, input.value)
         //3. add the item to the UI
 
         //4. Calculate the budget
