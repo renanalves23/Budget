@@ -27,16 +27,21 @@ var budgetController = (function() {
         addItem: function(type, des, val) {
           var newItem, ID;
 
-          ID = 0;
+            //create new ID
+          ID = data.allItems[type][data.allItems[type].length -1].id +1;
 
+          //create new Item based on inc or exp
           if (type === 'exp'){
             newItem = new Expense(ID, des, val);
           }else if (type === 'inc'){
             newItem = new Income(ID, des, val);
           }
 
+            // push it into data structure
             data.allItems[type].push(newItem)
 
+            //return new element
+          return newItem;
         }
 
       };
@@ -99,7 +104,7 @@ var controller = (function(budgetCtrl, UICtrl) {
           var input = UICtrl.getInput(); //chamado do UI
           //console.log(input)
         //2. add the item to the budget controller
-
+          budgetController.addItem()
         //3. add the item to the UI
 
         //4. Calculate the budget
